@@ -29,7 +29,7 @@ module Mutter
         when Array
           @active = obj
         when Symbol
-          @active << obj
+          self.<< obj
         when String
           load obj
         else raise ArgumentError
@@ -61,6 +61,10 @@ module Mutter
       end
     end
     
+    def << style
+      @active << style
+    end
+    
     def parse string
       @styles.inject(string) do |str, (name, options)|
         glyph, styles = options[:match], options[:style]
@@ -68,9 +72,9 @@ module Mutter
           str.gsub(/#{Regexp.escape(glyph.first)}(.+?)
                     #{Regexp.escape(glyph.last)}/x) { stylize $1, styles }
         else
-  			  str.gsub(/(#{Regexp.escape(glyph)}+)(.+?)\1/) { stylize $2, styles }
-			  end
-  		end
+          str.gsub(/(#{Regexp.escape(glyph)}+)(.+?)\1/) { stylize $2, styles }
+        end
+      end
     end
     
     def stylize string, styles = []
