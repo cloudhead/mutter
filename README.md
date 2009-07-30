@@ -5,13 +5,16 @@ mutter
 >   in color and style
 
 mutter is a tiny CLI library, with a focus on style.
+use it in your apps to have better looking command-line output!
 
 usage
 -----
 
+    require 'mutter'
+
     mut = Mutter.new
-    mut.say "hello *world*"      # hello **world**
-    mut.say "hello world", :bold # **hello world**
+    mut.say "hello _world_"      # underlines 'world'
+    mut.say "hello world", :bold # bolds 'hello world'
 
 customization
 -------------
