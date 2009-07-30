@@ -7,8 +7,8 @@ mutter
 mutter is a tiny CLI library, with a focus on style.
 use it in your apps to have better looking command-line output!
 
-usage
------
+printing to the command-line
+----------------------------
 
     require 'mutter'
 
