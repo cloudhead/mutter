@@ -1,21 +1,24 @@
 mutter
 ======
 
-> $ my words come out, 
-> in color and style
+    $ my words come out, 
+        in color and
+            style
 
-mutter is the tiny CLI library, with a focus on style.
-use it in your apps to have better looking command-line output!
+> mutter is the tiny CLI library, with a focus on style.
 
-printing to the command-line
-----------------------------
+use it in your apps to have _gorgeous_ command-line output!
+
+usage (command-line output)
+---------------------------
 
     require 'mutter'
 
     mut = Mutter.new
-    mut.say "hello _world_"        # underlines 'world'
-    mut.say "hello world", :bold   # bolds the whole string
-    mut.say "hello [world]", :cyan # inverts 'world', and colors the string cyan
+    mut.say "hello _world_"         # underlines 'world'
+    mut.say "hello world",   :bold  # bolds the whole string
+    mut.say "hello [world]", :cyan  # inverts 'world', and colors the string cyan
+    mut.print "bonjour!"            # alias of `say`
 
 styles
 ------
@@ -31,12 +34,12 @@ customization
 -------------
 
     styles = {
-      :warning => {
-        :match => ['*!', '!*'],
-        :style => ['yellow', 'bold']
+      :warning => {                     # an alias you can use anywhere in mutter
+        :match => ['*!', '!*'],         # will match *!mutter!*
+        :style => ['yellow', 'bold']    # these styles will be applied to the match
       },
       :error => {
-        :match => '!!',
+        :match => '!!',                 # will match !!mutter!!
         :style => ['red', 'underline']
       }
     }
@@ -44,6 +47,13 @@ customization
     mut = Mutter.new(styles)
     mut.say "warning, warning!", :warning
     mut.say "gosh, we have an !!error!!"
+    
+### quick styles
+
+    mut = Mutter.new :yellow => '~'
+    mut.say "~[black on yellow!]~"
+
+### YAML styles
 
 mutter can also read styles from _YAML_ files, just give it the path, like so:
 
@@ -51,5 +61,12 @@ mutter can also read styles from _YAML_ files, just give it the path, like so:
 
 There's an example style in `spec/`
 
-have fun!
----------
+installation
+------------
+
+    $ sudo gem install cloudhead-mutter
+    
+That's it!
+----------
+
+_have fun_
