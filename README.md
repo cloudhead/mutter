@@ -1,8 +1,8 @@
 mutter
 ======
 
-> my words come out, 
-  > in color and style
+> $ my words come out, 
+> in color and style
 
 mutter is the tiny CLI library, with a focus on style.
 use it in your apps to have better looking command-line output!
