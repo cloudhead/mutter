@@ -1,7 +1,0 @@
-= mumbler
-
-Description goes here.
-
-== Copyright
-
-Copyright (c) 2009 cloudhead. See LICENSE for details.

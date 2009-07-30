@@ -1,0 +1,8 @@
+important:
+  match:
+    - '{'
+    - '}'
+  style:
+    - bold
+    - underline
+    - yellow

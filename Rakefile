@@ -4,10 +4,10 @@ require 'rake'
 begin
   require 'jeweler'
   Jeweler::Tasks.new do |gem|
-    gem.name = "mumbler"
-    gem.summary = %Q{TODO}
-    gem.email = "alexis@cloudhead.net"
-    gem.homepage = "http://github.com/cloudhead/mumbler"
+    gem.name = "mutter"
+    gem.summary = %Q{}
+    gem.email = "self@cloudhead.net"
+    gem.homepage = "http://github.com/cloudhead/mutter"
     gem.authors = ["cloudhead"]
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
   end
@@ -49,8 +49,25 @@ Rake::RDocTask.new do |rdoc|
   end
 
   rdoc.rdoc_dir = 'rdoc'
-  rdoc.title = "mumbler #{version}"
+  rdoc.title = "mutter #{version}"
   rdoc.rdoc_files.include('README*')
   rdoc.rdoc_files.include('lib/**/*.rb')
 end
 
+require 'spec/rake/spectask'
+
+Spec::Rake::SpecTask.new("spec") do |t|
+  t.spec_files = FileList['spec/**/*_spec.rb']
+  t.spec_opts = ['--color', '--format=specdoc']
+end
+
+task :test do
+  Rake::Task['spec'].invoke
+end
+
+Spec::Rake::SpecTask.new("rcov_spec") do |t|
+  t.spec_files = FileList['spec/**/*_spec.rb']
+  t.spec_opts = ['--color']
+  t.rcov = true
+  t.rcov_opts = ['--exclude', '^spec,/gems/']
+end
