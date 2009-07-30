@@ -6,8 +6,7 @@ mutter
             style
 
 > mutter is the tiny CLI library, with a focus on style.
-
-use it in your apps to have _gorgeous_ command-line output!
+> use it in your apps to have _gorgeous_ command-line output!
 
 usage (command-line output)
 ---------------------------
@@ -70,3 +69,8 @@ That's it!
 ----------
 
 _have fun_
+
+Footnote
+--------
+
+This code is _highly experimental_, don't try this at home!
