@@ -57,11 +57,12 @@ describe Mutter do
     it "should work with custom styles" do
       style = {
         :alert => {
-          :match => '!', 
-          :styles => ['bold', 'red']
+          :match => '!!', 
+          :style => ['bold', 'red']
         }
       }
       Mutter.new(style).say "alert!", :alert
+      out.should == "\e[31m\e[1malert!\e[22m\e[0m\n"
     end
   
     it "should work with shorthand custom styles" do

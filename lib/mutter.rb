@@ -39,14 +39,15 @@ module Mutter
     def load styles
       styles += '.yml' unless styles =~ /\.ya?ml/
       styles = YAML.load_file(styles).inject({}) do |h, (key, value)|
-        value = { match: value['match'], style: value['style'] }
+        value = { :match => value['match'], :style => value['style'] }
         h.merge key.to_sym => value
       end
       @styles.merge! styles
     end
     
     def say str, *styles
-      self.class.stream.write stylize(parse(str), @active + styles).gsub(/\e(\d+)/, "\e[\\1m") + "\n"
+      out = stylize(parse(str), @active + styles)
+      self.class.stream.write out.gsub(/\e(\d+)\e/, "\e[\\1m") + "\n"
       self.class.stream.flush
     end
     alias :print say
@@ -72,15 +73,20 @@ module Mutter
   		end
     end
     
-    def stylize string, styles = []      
+    def stylize string, styles = []
       [styles].flatten.inject(string) do |str, style|
-        open, close = ANSI[style.to_sym]
-        "#{esc(open)}#{str}#{esc(close || 0)}"
+        style = style.to_sym
+        if ANSI.include? style
+          open, close = ANSI[style]
+          "#{esc(open)}#{str}#{esc(close || 0)}"
+        else
+          stylize(str, @styles[style][:style])
+        end
       end
     end
     
     def esc style
-      "\e#{style}"
+      "\e#{style}\e"
     end
     
     def self.stream
