@@ -21,6 +21,7 @@ Gem::Specification.new do |s|
      "VERSION",
      "lib/defaults.yml",
      "lib/mutter.rb",
+     "mutter.gemspec",
      "spec/mutter_spec.rb",
      "spec/spec_helper.rb",
      "spec/style.yml"
