@@ -18,6 +18,7 @@ usage (command-line output)
     mut.say "hello world",   :bold  # bolds the whole string
     mut.say "hello [world]", :cyan  # inverts 'world', and colors the string cyan
     mut.print "bonjour!"            # alias of `say`
+    mut["hola"]                     # yet another way to print
 
 styles
 ------
@@ -44,8 +45,9 @@ customization
     }
     
     mut = Mutter.new(styles)
-    mut.say "warning, warning!", :warning
-    mut.say "gosh, we have an !!error!!"
+    mut.say     "warning, warning!", :warning
+    mut.warning "warning, warning!"
+    mut.say     "gosh, we have an !!error!!"
     
 ### quick styles
 

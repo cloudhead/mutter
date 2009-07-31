@@ -6,3 +6,9 @@ important:
     - bold
     - underline
     - yellow
+
+warning:
+  match: '@'
+  style:
+    - red
+    

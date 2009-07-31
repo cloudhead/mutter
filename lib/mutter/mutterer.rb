@@ -65,6 +65,9 @@ module Mutter
     alias :print say
     alias :[]    say
 
+    #
+    # Write to the out stream, and flush it
+    #
     def write str
       self.class.stream.tap do |stream|
         stream.write str
