@@ -167,8 +167,26 @@ module Mutter
     end
   end
   
+  class Indenter
+    def initialize tab = 2
+      @tab = tab
+    end
+    
+    def [] n, obj = nil
+      ' ' * (n * @tab)
+    end
+  end
+  
+  def self.indenter tab
+    Indenter.new tab
+  end
+  
   def self.say *args
     new.say *args
+  end
+  
+  def self.stylize *args
+    new.stylize *args
   end
   
   def self.new *args
