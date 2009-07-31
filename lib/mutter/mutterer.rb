@@ -45,11 +45,11 @@ module Mutter
     #
     def load styles
       styles += '.yml' unless styles =~ /\.ya?ml/
-      styles = YAML.load_file(styles).inject({}) do |h, (key, value)|
+      @defaults = YAML.load_file(styles).inject({}) do |h, (key, value)|
         value = { :match => value['match'], :style => value['style'] }
         h.merge key.to_sym => value
       end
-      @styles.merge! styles
+      @styles.merge! @defaults
     end
 
     #
