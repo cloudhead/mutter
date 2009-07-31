@@ -1,4 +1,5 @@
 require 'yaml'
+require 'ext'
 #
 # Mutter — the tiny command-line interface library with lots of style~
 #
@@ -70,12 +71,21 @@ module Mutter
     # Output to the command-line
     #   we parse the string, but also apply a style on the whole string,
     #
-    def say str, *styles
-      out = stylize(parse(str), @active + styles)
-      self.class.stream.write out.gsub(/\e(\d+)\e/, "\e[\\1m") + "\n"
-      self.class.stream.flush
+    def say obj, *styles
+      stylize(parse(obj), @active + styles).tap do |out|
+        self.write out.gsub(/\e(\d+)\e/, "\e[\\1m") + "\n"
+      end
     end
+    
     alias :print say
+    alias :[]    say
+    
+    def write str
+      self.class.stream.tap do |stream|
+        stream.write str
+        stream.flush
+      end
+    end
     
     #
     # Utility function, to make a block interruptible
@@ -88,6 +98,7 @@ module Mutter
         exit 0
       end
     end
+    alias :oo watch
     
     #
     # Add a style to the active styles
