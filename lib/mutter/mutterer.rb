@@ -26,6 +26,17 @@ module Mutter
           load obj
         else raise ArgumentError
       end
+      
+      #
+      # Create an instance method for each style
+      #
+      @styles.keys.each do |style|
+        (class << self; self end).class_eval do
+          define_method style do |msg|
+            say msg, style
+          end
+        end if style.is_a? Symbol
+      end
     end
 
     #

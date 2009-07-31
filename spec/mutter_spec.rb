@@ -94,6 +94,11 @@ describe Mutter do
       Mutter.new("spec/style").say "{important message!}"
       out.should == "\e[33m\e[4m\e[1mimportant message!\e[22m\e[24m\e[0m\n"
     end
+    
+    it "should be able to call styles as methods" do
+      Mutter.new("spec/style").important "important message!"
+      out.should == "\e[33m\e[4m\e[1mimportant message!\e[22m\e[24m\e[0m\n"
+    end
   end
   
   it "should parse a complex string" do
