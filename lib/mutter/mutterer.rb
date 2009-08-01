@@ -91,10 +91,22 @@ module Mutter
     alias :oo watch
 
     #
-    # Add a style to the active styles
+    # Add and remove styles from the active styles
     #
     def << style
       @active << style
+    end
+    
+    def >> style
+      @active.delete style
+    end 
+    
+    def + style
+      dup.tap {|m| m << style }
+    end
+    
+    def - style
+      dup.tap {|m| m >> style }
     end
 
     #
