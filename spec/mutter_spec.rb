@@ -33,6 +33,11 @@ describe Mutter do
     out.should == "\e[7mhello mutter!\e[27m\n"
   end
   
+  it "should blink" do
+    Mutter.say "hello mutter!", :blink
+    out.should == "\e[5mhello mutter!\e[25m\n"
+  end
+  
   it "should escape glyphs" do
     Mutter.say "**hello * world**"
     out.should == "\e[1mhello * world\e[22m\n"
@@ -50,7 +55,7 @@ describe Mutter do
   
   it "should set defaults at both levels" do
     Mutter.new(:bold).say "hello mutter!", :underline, :yellow
-    out.should == "\e[33m\e[4m\e[1mhello mutter!\e[22m\e[24m\e[0m\n"
+    out.should == "\e[33m\e[4m\e[1mhello mutter!\e[22m\e[24m\e[39m\n"
   end
   
   describe "with custom styles" do
@@ -62,7 +67,7 @@ describe Mutter do
         }
       }
       Mutter.new(style).say "alert!", :alert
-      out.should == "\e[31m\e[1malert!\e[22m\e[0m\n"
+      out.should == "\e[31m\e[1malert!\e[22m\e[39m\n"
     end
   
     it "should work with shorthand custom styles" do
@@ -72,38 +77,53 @@ describe Mutter do
   
     it "should color" do
       Mutter.new({:cyan => ['<', '>']}).say "<hello mutter!>"
-      out.should == "\e[36mhello mutter!\e[0m\n"
+      out.should == "\e[36mhello mutter!\e[39m\n"
     end
   
     it "should mix styles" do
       Mutter.new({:cyan => '~'}).say "_*hello* ~world~_"
-      out.should == "\e[4m\e[1mhello\e[22m \e[36mworld\e[0m\e[24m\n"
+      out.should == "\e[4m\e[1mhello\e[22m \e[36mworld\e[39m\e[24m\n"
     end
   
     it "should color backgrounds" do
       Mutter.new({:cyan => '~'}).say "~[hello mutter!]~"
-      out.should == "\e[36m\e[7mhello mutter!\e[27m\e[0m\n"
+      out.should == "\e[36m\e[7mhello mutter!\e[27m\e[39m\n"
     end
   
     it "should work with multiple shorthand styles" do
       Mutter.new({[:cyan, :underline] => '~'}).say "~hello mutter!~"
-      out.should == "\e[4m\e[36mhello mutter!\e[0m\e[24m\n"
+      out.should == "\e[4m\e[36mhello mutter!\e[39m\e[24m\n"
     end
     
     it "should load styles from a yaml" do
       Mutter.new("spec/style").say "{important message!}"
-      out.should == "\e[33m\e[4m\e[1mimportant message!\e[22m\e[24m\e[0m\n"
+      out.should == "\e[33m\e[4m\e[1mimportant message!\e[22m\e[24m\e[39m\n"
     end
     
     it "should be able to call styles as methods" do
       Mutter.new("spec/style").important "important message!"
-      out.should == "\e[33m\e[4m\e[1mimportant message!\e[22m\e[24m\e[0m\n"
+      out.should == "\e[33m\e[4m\e[1mimportant message!\e[22m\e[24m\e[39m\n"
+    end
+    
+    it "should add and remove active styles" do
+      mut = Mutter.new
+      mut << :bold << :underline << :inverse
+      mut >> :inverse
+      mut.say "hello mutter!"
+      out.should == "\e[4m\e[1mhello mutter!\e[22m\e[24m\n"
+    end
+    
+    it "should return instances of itself, +- active styles" do
+      mut = Mutter.new
+      mut << :bold << :underline
+      (mut - :bold).say "hello mutter!"
+      out.should == "\e[4mhello mutter!\e[24m\n"
     end
   end
   
   it "should parse a complex string" do
     m = Mutter.new({:cyan => ['<','>']})
     m.say "hello *mutter*, would you _<please be quiet>_ for this <[test]>?"
-    out.should == "hello \e[1mmutter\e[22m, would you \e[4m\e[36mplease be quiet\e[0m\e[24m for this \e[36m\e[7mtest\e[27m\e[0m?\n"
+    out.should == "hello \e[1mmutter\e[22m, would you \e[4m\e[36mplease be quiet\e[39m\e[24m for this \e[36m\e[7mtest\e[27m\e[39m?\n"
   end
 end

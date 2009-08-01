@@ -1,8 +1,10 @@
 module Mutter
   class Mutterer
+    attr_accessor :styles
+    
     @stream = STDOUT
 
-    # Initialize the styles, and load the defaults from +defaults.yml+
+    # Initialize the styles, and load the defaults from +styles.yml+
     #
     # @active: currently active styles, which apply to the whole string
     # @styles: contains all the user + default styles
@@ -123,12 +125,15 @@ module Mutter
     #   if the style is a custom style, we recurse, sending
     #   the list of ANSI styles contained in the custom style.
     #
+    #   TODO: use ';' delimited codes instead of multiple \e sequences
+    #
     def stylize string, styles = []
       [styles].flatten.inject(string) do |str, style|
         style = style.to_sym
-        if ANSI.include? style
-          open, close = ANSI[style]
-          "#{esc(open)}#{str}#{esc(close || 0)}"
+        if ANSI[:transforms].include? style
+          esc str, *ANSI[:transforms][style]
+        elsif ANSI[:colors].include? style
+          esc str, ANSI[:colors][style], ANSI[:colors][:reset]
         else
           stylize(str, @styles[style][:style])
         end
@@ -138,8 +143,8 @@ module Mutter
     #
     # Escape a string, for later replacement
     #
-    def esc style
-      "\e#{style}\e"
+    def esc str, open, close
+      "\e#{open}\e" + str + "\e#{close}\e"
     end
 
     #

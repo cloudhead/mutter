@@ -12,24 +12,30 @@ require 'ext'
 
 module Mutter
   #
-  # ANSI color & style codes
+  # ANSI color & transform codes
   #
-  #   if the value's an array, it 
-  #   represents [0] is the start code
+  #   If the value's an array, 
+  #   [0] is the start code
   #   and [1] is the end code.
   #
-  #   if the value is an int, it represents
-  #   the start code, and the end code will be 0
+  #   Colors all have the same
+  #   reset code (39).
   #
   ANSI = {
-    :bold      => [1, 22],
-    :underline => [4, 24],
-    :inverse   => [7, 27],
-    
-    :black  => 30, :red    => 31,
-    :green  => 32, :yellow => 33,
-    :blue   => 34, :purple => 35,
-    :cyan   => 36, :white  => 37
+    :reset => 0,
+    :transforms => {
+      :bold      => [1, 22],
+      :underline => [4, 24],
+      :blink     => [5, 25],
+      :inverse   => [7, 27]
+    },
+    :colors => {
+      :black  => 30, :red    => 31,
+      :green  => 32, :yellow => 33,
+      :blue   => 34, :purple => 35,
+      :cyan   => 36, :white  => 37,
+      :reset  => 39
+    }
   }
   
   def self.indenter tab
