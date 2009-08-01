@@ -1,7 +1,7 @@
 module Mutter
   class Mutterer
     attr_accessor :styles
-    
+
     @stream = STDOUT
 
     # Initialize the styles, and load the defaults from +styles.yml+
@@ -28,7 +28,7 @@ module Mutter
           load obj
         else raise ArgumentError
       end
-      
+
       #
       # Create an instance method for each style
       #
@@ -96,15 +96,15 @@ module Mutter
     def << style
       @active << style
     end
-    
+
     def >> style
       @active.delete style
-    end 
-    
+    end
+
     def + style
       dup.tap {|m| m << style }
     end
-    
+
     def - style
       dup.tap {|m| m >> style }
     end
