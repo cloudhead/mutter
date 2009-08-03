@@ -55,17 +55,21 @@ module Mutter
     end
 
     #
-    # Output to the command-line
-    #   we parse the string, but also apply a style on the whole string,
+    # Output to @stream
     #
-    def say obj, *styles
-      stylize(parse(obj), @active + styles).tap do |out|
-        self.write out.gsub(/\e(\d+)\e/, "\e[\\1m") + "\n"
-      end
+    def say msg, *styles
+      self.write process(msg, *styles) + "\n"
     end
-
+    
     alias :print say
-    alias :[]    say
+    
+    #
+    #  Parse the message, but also apply a style on the whole thing
+    #
+    def process msg, *styles
+      stylize(parse(msg), @active + styles).gsub(/\e(\d+)\e/, "\e[\\1m")
+    end
+    alias :[] process
 
     #
     # Write to the out stream, and flush it

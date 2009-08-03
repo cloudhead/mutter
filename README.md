@@ -18,13 +18,13 @@ usage (command-line output)
     mut.say "hello world",   :bold  # bolds the whole string
     mut.say "hello [world]", :cyan  # inverts 'world', and colors the string cyan
     mut.print "bonjour!"            # alias of `say`
-    mut["hola"]                     # yet another way to print
+    mut["_hola_"]                   # return the stylized string without printing
 
 styles
 ------
 mutter supports these styles:
 
-    :bold, :underline, :inverse
+    :bold, :underline, :inverse, :blink
 
 and these colors:
 
@@ -53,6 +53,13 @@ customization
 
     mut = Mutter.new :yellow => '~'
     mut.say "~[black on yellow!]~"
+    
+### add/remove styles from an instance
+
+    mut = Mutter.new(:blink)
+    mut >> :blink               # remove :blink
+    mut << :bold << :underline  # add :bold and :underline
+    mut.say "hello mutter."     # bold and underlined
 
 ### YAML styles
 
