@@ -5,8 +5,8 @@ mutter
         in color and
             style
 
-> mutter is the tiny CLI library, with a focus on style.
-> use it in your apps to have _gorgeous_ command-line output!
+> mutter is the tiny CLI library, with a focus on style—
+> taking the concepts of _separation of style & content_ to the command-line!
 
 usage (command-line output)
 ---------------------------
