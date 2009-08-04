@@ -45,9 +45,31 @@ customization
     }
     
     mut = Mutter.new(styles)
-    mut.say     "warning, warning!", :warning
-    mut.warning "warning, warning!"
+    mut.say     "warning, the dogs have escaped!", :warning  # These two are
+    mut.warning "warning, the dogs have escaped!"            # equivalent
     mut.say     "gosh, we have an !!error!!"
+
+### YAML
+    
+The previous example could have (and should really have) been written in a separate .yml file, like so:
+    
+    warning:
+      match: 
+        - '*!'
+        - '!*
+      style:
+        - yellow
+        - bold
+
+    error:
+      match: '!!'
+      style:
+        - red
+        - underline
+
+and then loaded like this:
+
+    Mutter.new("styles.yml")
     
 ### quick styles
 
@@ -60,14 +82,6 @@ customization
     mut >> :blink               # remove :blink
     mut << :bold << :underline  # add :bold and :underline
     mut.say "hello mutter."     # bold and underlined
-
-### YAML styles
-
-mutter can also read styles from _YAML_ files, just give it the path, like so:
-
-    Mutter.new("styles.yml")
-
-There's an example style in `spec/`
 
 installation
 ------------
