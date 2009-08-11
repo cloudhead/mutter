@@ -7,11 +7,12 @@ mutter
 
 > mutter takes the concepts of **separation of style & content** to the command-line!
 
-usage (command-line output)
----------------------------
-
+synopsis
+--------
+    
     require 'mutter'
-
+    
+    # Examples of command-line output
     mut = Mutter.new
     mut.say "hello _world_"         # underlines 'world'
     mut.say "hello world",   :bold  # bolds the whole string
