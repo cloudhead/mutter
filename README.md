@@ -12,8 +12,7 @@ synopsis
     
     require 'mutter'
     
-    # Examples of command-line output
-    mut = Mutter.new
+    mut = Mutter.new                # creates a new 'Mutterer', who talks in command-line language
     mut.say "hello _world_"         # underlines 'world'
     mut.say "hello world",   :bold  # bolds the whole string
     mut.say "hello [world]", :cyan  # inverts 'world', and colors the string cyan
