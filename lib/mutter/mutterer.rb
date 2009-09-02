@@ -58,7 +58,8 @@ module Mutter
     # Output to @stream
     #
     def say msg, *styles
-      self.write process(msg, *styles) + "\n"
+      self.write (ENV['TERM'].include?('color') ? process(msg, *styles) : msg) + "\n"
+      return nil
     end
     
     alias :print say
@@ -78,7 +79,7 @@ module Mutter
       self.class.stream.tap do |stream|
         stream.write str
         stream.flush
-      end
+      end; nil
     end
 
     #
