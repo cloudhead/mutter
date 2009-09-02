@@ -28,12 +28,6 @@ module Mutter
           load obj
         else raise ArgumentError
       end
-      
-      def clear
-        @active, @styles = [], {}
-        self
-      end
-      alias :reset clear
 
       #
       # Create an instance method for each style
@@ -46,6 +40,12 @@ module Mutter
         end if style.is_a? Symbol
       end
     end
+    
+    def clear
+      @active, @styles = [], {}
+      self
+    end
+    alias :reset clear
 
     #
     # Loads styles from a YAML style-sheet,
