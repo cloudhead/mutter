@@ -6,7 +6,8 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["cloudhead"]
-  s.date = %q{2009-09-01}
+  s.date = %q{2009-09-02}
+  s.description = %q{the tiny CLI library}
   s.email = %q{self@cloudhead.net}
   s.extra_rdoc_files = [
     "LICENSE",
@@ -32,8 +33,9 @@ Gem::Specification.new do |s|
   s.homepage = %q{http://github.com/cloudhead/mutter}
   s.rdoc_options = ["--charset=UTF-8"]
   s.require_paths = ["lib"]
+  s.rubyforge_project = %q{mutter}
   s.rubygems_version = %q{1.3.5}
-  s.summary = %q{}
+  s.summary = %q{the tiny CLI library}
   s.test_files = [
     "spec/mutter_spec.rb",
      "spec/spec_helper.rb"
