@@ -10,7 +10,7 @@ module Mutter
     # @styles: contains all the user + default styles
     #
     def initialize obj = {}
-      @active, @styles = [], {}
+      self.reset
       load File.dirname(__FILE__) + "/styles"
 
       case obj
