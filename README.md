@@ -5,15 +5,14 @@ mutter
         in color and
             style
 
-> mutter is the tiny CLI library, with a focus on style—
-> taking the concepts of _separation of style & content_ to the command-line!
+> mutter takes the concepts of **separation of style & content** to the command-line!
 
-usage (command-line output)
----------------------------
-
+synopsis
+--------
+    
     require 'mutter'
-
-    mut = Mutter.new
+    
+    mut = Mutter.new                # creates a new 'Mutterer', who talks in command-line language
     mut.say "hello _world_"         # underlines 'world'
     mut.say "hello world",   :bold  # bolds the whole string
     mut.say "hello [world]", :cyan  # inverts 'world', and colors the string cyan
