@@ -28,6 +28,12 @@ module Mutter
           load obj
         else raise ArgumentError
       end
+      
+      def clear
+        @active, @styles = [], {}
+        self
+      end
+      alias :reset clear
 
       #
       # Create an instance method for each style
