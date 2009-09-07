@@ -1,7 +1,5 @@
 module Mutter
   class Mutterer
-    attr_accessor :styles
-
     @stream = STDOUT
 
     # Initialize the styles, and load the defaults from +styles.yml+
@@ -31,7 +29,7 @@ module Mutter
       #
       # Create an instance method for each style
       #
-      @styles.keys.each do |style|
+      self.styles.keys.each do |style|
         (class << self; self end).class_eval do
           define_method style do |msg|
             say msg, style
@@ -40,8 +38,19 @@ module Mutter
       end
     end
     
-    def clear
-      @active, @styles = [], {}
+    def styles
+      @defaults.merge @styles
+    end
+
+    def clear opt = :all
+      case opt
+        when :user    then @styles = {}
+        when :default then @defaults = {}
+        when :styles  then @styles, @defaults = {}, {}
+        when :active  then @active = []
+        when :all     then @active, @styles, @defaults = [], {}, {}
+        else          raise ArgumentError, "[:user, :default, :active, :all] only"
+      end
       self
     end
     alias :reset clear
@@ -126,13 +135,13 @@ module Mutter
     #   the matches are sent to +stylize+
     #
     def parse string
-      @styles.inject(string) do |str, (name, options)|
-        glyph, styles = options[:match], options[:style]
+      self.styles.inject(string) do |str, (name, options)|
+        glyph, style = options[:match], options[:style]
         if glyph.is_a? Array
           str.gsub(/#{Regexp.escape(glyph.first)}(.+?)
-                    #{Regexp.escape(glyph.last)}/x) { stylize $1, styles }
+                    #{Regexp.escape(glyph.last)}/x) { stylize $1, style }
         else
-          str.gsub(/(#{Regexp.escape(glyph)}+)(.+?)\1/) { stylize $2, styles }
+          str.gsub(/(#{Regexp.escape(glyph)}+)(.+?)\1/) { stylize $2, style }
         end
       end
     end
