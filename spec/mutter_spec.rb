@@ -43,17 +43,17 @@ describe Mutter do
     out.should == "\e[1mhello * world\e[22m\n"
   end
   
-  it "should set defaults at the instance level" do
+  it "should set actives at the instance level" do
     Mutter.new([:bold, :underline]).say "hello mutter!"
     out.should == "\e[4m\e[1mhello mutter!\e[22m\e[24m\n"
   end
   
-  it "should set defaults at the method level" do
+  it "should set actives at the method level" do
     Mutter.say "hello mutter!", :bold, :underline
     out.should == "\e[4m\e[1mhello mutter!\e[22m\e[24m\n"
   end
   
-  it "should set defaults at both levels" do
+  it "should set actives at both levels" do
     Mutter.new(:bold).say "hello mutter!", :underline, :yellow
     out.should == "\e[33m\e[4m\e[1mhello mutter!\e[22m\e[24m\e[39m\n"
   end
@@ -69,17 +69,24 @@ describe Mutter do
       Mutter.new(style).say "alert!", :alert
       out.should == "\e[31m\e[1malert!\e[22m\e[39m\n"
     end
+    
+    describe "in shorthand form" do
+      it "should work with simple shorthand styles" do
+        Mutter.new({:bold => '~'}).say "~hello mutter!~"
+        out.should == "\e[1mhello mutter!\e[22m\n"
+      end
   
-    it "should work with shorthand custom styles" do
-      Mutter.new({:bold => '~'}).say "~hello mutter!~"
-      out.should == "\e[1mhello mutter!\e[22m\n"
+      it "should work with complex shorthand styles" do
+        Mutter.new({:cyan => ['<', '>']}).say "<hello mutter!>"
+        out.should == "\e[36mhello mutter!\e[39m\n"
+      end
+    
+      it "should work with multiple shorthand styles" do
+        Mutter.new({[:cyan, :underline] => '~'}).say "~hello mutter!~"
+        out.should == "\e[4m\e[36mhello mutter!\e[39m\e[24m\n"
+      end
     end
-  
-    it "should color" do
-      Mutter.new({:cyan => ['<', '>']}).say "<hello mutter!>"
-      out.should == "\e[36mhello mutter!\e[39m\n"
-    end
-  
+    
     it "should mix styles" do
       Mutter.new({:cyan => '~'}).say "_*hello* ~world~_"
       out.should == "\e[4m\e[1mhello\e[22m \e[36mworld\e[39m\e[24m\n"
@@ -88,11 +95,6 @@ describe Mutter do
     it "should color backgrounds" do
       Mutter.new({:cyan => '~'}).say "~[hello mutter!]~"
       out.should == "\e[36m\e[7mhello mutter!\e[27m\e[39m\n"
-    end
-  
-    it "should work with multiple shorthand styles" do
-      Mutter.new({[:cyan, :underline] => '~'}).say "~hello mutter!~"
-      out.should == "\e[4m\e[36mhello mutter!\e[39m\e[24m\n"
     end
     
     it "should load styles from a yaml" do
@@ -103,6 +105,17 @@ describe Mutter do
     it "should be able to call styles as methods" do
       Mutter.new("spec/style").important "important message!"
       out.should == "\e[33m\e[4m\e[1mimportant message!\e[22m\e[24m\e[39m\n"
+    end
+    
+    it "should clear all styles" do
+      Mutter.new.clear(:all).say "[hello] *world*"
+      out.should == "[hello] *world*\n"
+    end
+    
+    it "should clear active styles" do
+      mut = Mutter.new(:bold)
+      mut.clear(:active).say "hello"
+      out.should == "hello\n"
     end
     
     it "should add and remove active styles" do
