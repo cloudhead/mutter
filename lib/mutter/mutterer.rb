@@ -11,21 +11,20 @@ module Mutter
     #
     def initialize obj = {}
       self.reset
-      load File.dirname(__FILE__) + "/styles"
+      @defaults = load File.dirname(__FILE__) + "/styles"
 
       case obj
         when Hash       # A style definition: expand quick-styles and merge with @styles
-          obj = obj.inject({}) do |h, (k, v)|
+          @styles = obj.inject({}) do |h, (k, v)|
             h.merge k =>
               (v.is_a?(Hash) ? v : { :match => v, :style => [k].flatten })
           end
-          @styles.merge! obj
         when Array      # An array of styles to be activated
           @active = obj
         when Symbol     # A single style to be activated
-          self.<< obj
+          self << obj
         when String     # The path of a yaml style-sheet
-          load obj
+          @styles = load obj
         else raise ArgumentError
       end
 
@@ -53,11 +52,10 @@ module Mutter
     #
     def load styles
       styles += '.yml' unless styles =~ /\.ya?ml/
-      @defaults = YAML.load_file(styles).inject({}) do |h, (key, value)|
+      YAML.load_file(styles).inject({}) do |h, (key, value)|
         value = { :match => value['match'], :style => value['style'] }
         h.merge key.to_sym => value
       end
-      @styles.merge! @defaults
     end
 
     #
