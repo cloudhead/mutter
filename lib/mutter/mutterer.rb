@@ -138,10 +138,10 @@ module Mutter
       self.styles.inject(string) do |str, (name, options)|
         glyph, style = options[:match], options[:style]
         if glyph.is_a? Array
-          str.gsub(/#{Regexp.escape(glyph.first)}(.+?)
+          str.gsub(/#{Regexp.escape(glyph.first)}(.*?)
                     #{Regexp.escape(glyph.last)}/x) { stylize $1, style }
         else
-          str.gsub(/(#{Regexp.escape(glyph)}+)(.+?)\1/) { stylize $2, style }
+          str.gsub(/(#{Regexp.escape(glyph)}+)(.*?)\1/) { stylize $2, style }
         end
       end
     end
