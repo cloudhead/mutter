@@ -51,6 +51,10 @@ module Mutter
     new.stylize *args
   end
   
+  def self.process *args
+    new.process *args
+  end
+  
   def self.new *args
     Mutterer.new(*args)
   end

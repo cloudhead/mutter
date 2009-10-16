@@ -44,12 +44,13 @@ module Mutter
 
     def clear opt = :all
       case opt
-        when :user    then @styles = {}
-        when :default then @defaults = {}
-        when :styles  then @styles, @defaults = {}, {}
-        when :active  then @active = []
-        when :all     then @active, @styles, @defaults = [], {}, {}
-        else          raise ArgumentError, "[:user, :default, :active, :all] only"
+        when :user     then @styles = {}
+        when :styles   then @styles, @defaults = {}, {}
+        when :active   then @active = []
+        when :all      then @active, @styles, @defaults = [], {}, {}
+        when :default, 
+             :defaults then @defaults = {}
+        else           raise ArgumentError, "[:user, :default, :active, :all] only"
       end
       self
     end
