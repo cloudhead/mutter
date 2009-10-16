@@ -14,7 +14,7 @@ setup
 
 synopsis
 --------
-    
+
     require 'mutter'
 
     mut = Mutter.new                # creates a new 'Mutterer', who talks in command-line language
@@ -22,26 +22,26 @@ synopsis
     mut.say "hello world",   :bold  # bolds the whole string
     mut.say "hello [world]", :cyan  # inverts 'world', and colors the string cyan
     mut.print "bonjour!"            # alias of `say`
-    mut["_hola_"]                   # return the stylized string without printing
+    mut["_hola_"]                   # return the stylized string without printing, alias of #process
 
 ### Tables
-    
-    # Define your table structure, arguments are optional.
-    # Strings which don't fit the column width will be truncated
-    # with '..' by default, you can change that with the :truncater
-    # option.
-    table = Mutter::Table.new(:delimiter => '|') do
-      column :width => 15, :style => :green
-      column :style => :yellow
+
+Define your table structure, arguments are optional.
+
+    table = Mutter::Table.new(:delimiter => '|') do    # Strings which don't fit the column width will be truncated
+      column :width => 15, :style => :green            # with '..' by default, you can change that with the :truncater
+      column :style => :yellow                         # option.
       column :width => 15, :align => :right
     end
-    
-    # Add some rows
+
+Add some rows
+
     table << ["gaspar", "morello", 1976]
     table << ["eddie", "vedder", 1964]
     table << ["david", "bowie", 1947]
     
-    # Print
+Print.
+
     print table.to_s
 
 If you want something barebones, you can also do
@@ -119,8 +119,3 @@ That's it!
 ----------
 
 _have fun_
-
-Footnote
---------
-
-This code is _highly experimental_, don't try this at home!
