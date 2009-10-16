@@ -107,6 +107,13 @@ module Mutter
       end
     end
     alias :oo watch
+    
+    #
+    # Create a table
+    #
+    def table *args, &blk
+      Table.new(*args, &blk)
+    end
 
     #
     # Add and remove styles from the active styles
