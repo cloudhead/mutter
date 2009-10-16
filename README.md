@@ -7,6 +7,11 @@ mutter
 
 > mutter takes the concepts of **separation of style & content** to the command-line!
 
+setup
+-----
+
+    $ sudo gem install mutter -s http://gemcutter.org
+
 synopsis
 --------
     
@@ -109,11 +114,6 @@ and then loaded like this:
     mut >> :blink               # remove :blink
     mut << :bold << :underline  # add :bold and :underline
     mut.say "hello mutter."     # bold and underlined
-
-installation
-------------
-
-    $ sudo gem install cloudhead-mutter
     
 That's it!
 ----------
