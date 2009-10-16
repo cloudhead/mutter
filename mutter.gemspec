@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{mutter}
-  s.version = "0.3.7"
+  s.version = "0.4.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["cloudhead"]
-  s.date = %q{2009-10-07}
+  s.date = %q{2009-10-15}
   s.description = %q{the tiny CLI library}
   s.email = %q{self@cloudhead.net}
   s.extra_rdoc_files = [
@@ -27,11 +27,14 @@ Gem::Specification.new do |s|
      "lib/mutter.rb",
      "lib/mutter/indenter.rb",
      "lib/mutter/mutterer.rb",
-     "lib/mutter/styles.yml",
+     "lib/mutter/styles/default.yml",
+     "lib/mutter/styles/html.yml",
+     "lib/mutter/table.rb",
      "mutter.gemspec",
      "spec/mutter_spec.rb",
      "spec/spec_helper.rb",
-     "spec/style.yml"
+     "spec/style.yml",
+     "spec/table_spec.rb"
   ]
   s.homepage = %q{http://github.com/cloudhead/mutter}
   s.rdoc_options = ["--charset=UTF-8"]
@@ -41,7 +44,8 @@ Gem::Specification.new do |s|
   s.summary = %q{the tiny CLI library}
   s.test_files = [
     "spec/mutter_spec.rb",
-     "spec/spec_helper.rb"
+     "spec/spec_helper.rb",
+     "spec/table_spec.rb"
   ]
 
   if s.respond_to? :specification_version then
