@@ -9,7 +9,7 @@ module Mutter
     #
     def initialize obj = {}
       self.reset
-      @defaults = load File.dirname(__FILE__) + "/styles"
+      @defaults = load 'default'
 
       case obj
         when Hash       # A style definition: expand quick-styles and merge with @styles
@@ -60,7 +60,8 @@ module Mutter
     #   and converts the keys to symbols
     #
     def load styles
-      styles += '.yml' unless styles =~ /\.ya?ml/
+      styles += '.yml' unless styles =~ /\.ya?ml$/
+      styles = File.join(File.dirname(__FILE__), "styles", styles) unless File.exist? styles
       YAML.load_file(styles).inject({}) do |h, (key, value)|
         value = { :match => value['match'], :style => value['style'] }
         h.merge key.to_sym => value
