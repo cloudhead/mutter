@@ -11,13 +11,41 @@ synopsis
 --------
     
     require 'mutter'
-    
+
     mut = Mutter.new                # creates a new 'Mutterer', who talks in command-line language
     mut.say "hello _world_"         # underlines 'world'
     mut.say "hello world",   :bold  # bolds the whole string
     mut.say "hello [world]", :cyan  # inverts 'world', and colors the string cyan
     mut.print "bonjour!"            # alias of `say`
     mut["_hola_"]                   # return the stylized string without printing
+
+### Tables
+    
+    # Define your table structure, arguments are optional.
+    # Strings which don't fit the column width will be truncated
+    # with '..' by default, you can change that with the :truncater
+    # option.
+    table = Mutter::Table.new(:delimiter => '|') do
+      column :width => 15, :style => :green
+      column :style => :yellow
+      column :width => 15, :align => :right
+    end
+    
+    # Add some rows
+    table << ["gaspar", "morello", 1976]
+    table << ["eddie", "vedder", 1964]
+    table << ["david", "bowie", 1947]
+    
+    # Print
+    print table.to_s
+
+If you want something barebones, you can also do
+
+    t = Mutter::Table.new
+    t.rows = (1..10).map {|n| [n, n **2, n **3] }
+    t.print
+
+And it'll make sure everything is aligned nicely
 
 styles
 ------

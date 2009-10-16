@@ -39,14 +39,14 @@ module Mutter
       # Compute max column width
       @columns.each_with_index do |col, i|        
         col[:_width] = @rows.map do |r|
-          r[i].length
+          r[i].to_s.length
         end.max if @rows[i]
       end
       
       # print table
       @rows.map do |row|
         @columns.zip(row).map do |col, cell|
-          process(cell || "", 
+          process(cell.to_s || "", 
                   col[:width] || col[:_width],
                   col[:align],
                   col[:style])
