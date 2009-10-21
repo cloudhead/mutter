@@ -1,4 +1,3 @@
-require 'mutter'
 
 class String
   def examine depth = 0
