@@ -58,4 +58,17 @@ module Mutter
   def self.new *args
     Mutterer.new(*args)
   end
+  
+  #
+  # Utility function, to make a block interruptible
+  #
+  def watch
+    begin
+      yield
+    rescue Interrupt
+      puts
+      exit 0
+    end
+  end
+  alias :oo watch
 end

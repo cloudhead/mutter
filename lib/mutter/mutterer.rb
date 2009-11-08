@@ -94,22 +94,9 @@ module Mutter
       self.class.stream.tap do |stream|
         stream.write str
         stream.flush
-      end; nil
+      end ; nil
     end
 
-    #
-    # Utility function, to make a block interruptible
-    #
-    def watch
-      begin
-        yield
-      rescue Interrupt
-        puts
-        exit 0
-      end
-    end
-    alias :oo watch
-    
     #
     # Create a table
     #
