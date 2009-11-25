@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{mutter}
-  s.version = "0.5.0"
+  s.version = "0.5.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["cloudhead"]
-  s.date = %q{2009-11-08}
+  s.date = %q{2009-11-25}
   s.description = %q{the tiny command-line interface library with lots of style}
   s.email = %q{self@cloudhead.net}
   s.extra_rdoc_files = [
