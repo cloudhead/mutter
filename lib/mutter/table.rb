@@ -14,15 +14,18 @@ module Mutter
     def initialize options = {}, &blk
       @columns, @rows = [], []
       @options = DefaultTable.merge options
-      instance_eval(&blk) if block_given?
+
+      instance_eval(&blk) if (@fixed = block_given?)
     end
+
+    def fixed?; @fixed end
 
     def column options = {}
       @columns << DefaultColumn.merge(options)
     end
 
     def << row
-      if row.size > @columns.size
+      if row.size > @columns.size && fixed?
         raise ArgumentError,
           "row size is #{row.size} but I only have #{@columns.size} columns"
       else
