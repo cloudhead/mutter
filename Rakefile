@@ -9,11 +9,9 @@ begin
     gem.description = %Q{the tiny command-line interface library with lots of style}
     gem.email = "self@cloudhead.net"
     gem.homepage = "http://github.com/cloudhead/mutter"
-    gem.rubyforge_project = 'mutter'
     gem.authors = ["cloudhead"]
   end
   Jeweler::GemcutterTasks.new
-  Jeweler::RubyforgeTasks.new
 rescue LoadError
   puts "Jeweler (or a dependency) not available. Install it with: sudo gem install jeweler"
 end
