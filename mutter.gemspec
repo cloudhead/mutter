@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{mutter}
-  s.version = "0.5.1"
+  s.version = "0.5.2"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["cloudhead"]
-  s.date = %q{2009-11-25}
+  s.date = %q{2009-11-27}
   s.description = %q{the tiny command-line interface library with lots of style}
   s.email = %q{self@cloudhead.net}
   s.extra_rdoc_files = [
@@ -23,8 +23,8 @@ Gem::Specification.new do |s|
      "README.md",
      "Rakefile",
      "VERSION",
-     "lib/ext.rb",
      "lib/mutter.rb",
+     "lib/mutter/ext.rb",
      "lib/mutter/indenter.rb",
      "lib/mutter/mutterer.rb",
      "lib/mutter/styles/default.yml",
@@ -39,7 +39,6 @@ Gem::Specification.new do |s|
   s.homepage = %q{http://github.com/cloudhead/mutter}
   s.rdoc_options = ["--charset=UTF-8"]
   s.require_paths = ["lib"]
-  s.rubyforge_project = %q{mutter}
   s.rubygems_version = %q{1.3.5}
   s.summary = %q{the tiny CLI library}
   s.test_files = [
