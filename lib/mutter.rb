@@ -9,7 +9,7 @@ $:.unshift File.dirname(__FILE__)
 require 'mutter/mutterer'
 require 'mutter/indenter'
 require 'mutter/table'
-require 'ext'
+require 'mutter/ext'
 
 module Mutter
   #
